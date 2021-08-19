@@ -5,8 +5,8 @@
  * Further Modified By: Mark Njoroge 
  *
  * 
- * <STUDNUM_1> <STUDNUM_2>
- * Date
+ * STLMOU001 NTLSIP016
+ * 19/08/21
 */
 
 #include <signal.h> //for catching signals
@@ -48,6 +48,8 @@ void initGPIO(void){
 	 * You can also use "gpio readall" in the command line to get the pins
 	 * Note: wiringPi does not use GPIO or board pin numbers (unless specifically set to that mode)
 	 */
+
+	
 	printf("Setting up\n");
 	wiringPiSetup(); //This is the default mode. If you want to change pinouts, be aware
 	
