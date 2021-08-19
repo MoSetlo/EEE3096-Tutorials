@@ -17,7 +17,7 @@ void minInc(void);
 void toggleTime(void);
 
 // define constants
-const char RTCAddr = //Input RTC Address here 
+const char RTCAddr = 0x68 
 const char SEC_REGISTER = 0x00; // see register table in datasheet
 const char MIN_REGISTER = 0x01;
 const char HOUR_REGISTER = 0x02;
