@@ -292,7 +292,7 @@ void toggleTime(void){
 		MM = getMins();
 		SS = getSecs();
 
-		HH = hFormat(HH);
+		//HH = hFormat(HH);
 		HH = decCompensation(HH);
 		wiringPiI2CWriteReg8(RTC, HOUR_REGISTER, HH);
 
