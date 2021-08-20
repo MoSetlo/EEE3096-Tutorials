@@ -26,6 +26,8 @@ int RTC; //Holds the RTC instance
 int HH,MM,SS;
 
 int main(void){
+
+    wiringPiSetup(); //This is the default mode. If you want to change pinouts, be aware
 	RTC = wiringPiI2CSetup(RTCAddr); //Set up the RTC
 
 	//Set random time (3:04PM)
