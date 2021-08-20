@@ -112,7 +112,7 @@ int main(void){
 
 		hours=getHours();
 		mins=getMins();
-		secs=getMins();
+		secs=getSecs();
 		digitalWrite(LED, LOW);
 
 		
