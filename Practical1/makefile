@@ -7,9 +7,9 @@ OBJS = obj/*
 
 default:
     mkdir -p bin obj
-    $(CC) $(CFLAGS) -c src/BinClock.c -o obj/BinClock
+    $(CC) $(CFLAGS) -c src/newTest.c -o obj/newTest
     $(CC) $(CFLAGS) -c src/CurrentTime.c -o obj/CurrentTime
-    $(CC) $(CFLAGS) obj/BinClock obj/CurrentTime -o bin/Clock
+    $(CC) $(CFLAGS) obj/newTest obj/CurrentTime -o bin/Clock
 
 run:
     sudo ./bin/Clock
