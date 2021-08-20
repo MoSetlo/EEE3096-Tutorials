@@ -73,8 +73,8 @@ void initGPIO(void){
 	
 	//Attach interrupts to Buttons
 	//Write your logic here
-	wiringPiISR(BTNS[0], INT_EDGE_BOTH, hourInc);
-	wiringPiISR(BTNS[1], INT_EDGE_BOTH, minInc);
+	wiringPiISR(BTNS[0], INT_EDGE_RISING, hourInc);
+	wiringPiISR(BTNS[1], INT_EDGE_RISING, minInc);
 
 
 	printf("BTNS done\n");
@@ -109,6 +109,10 @@ int main(void){
 		digitalWrite(LED, HIGH);
 		printf("The current time is: %d:%d:%d\n", hours, mins, secs);
 		delay(1000); //milliseconds
+
+		hours=wiringPiI2CReadReg8(RTC, HOUR_REGISTER);
+		mins=wiringPiI2CReadReg8(RTC, MIN_REGISTER);
+		secs=wiringPiI2CReadReg8(RTC, SEC_REGISTER);
 		digitalWrite(LED, LOW);
 
 		
