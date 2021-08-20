@@ -110,9 +110,9 @@ int main(void){
 		// printf("The current time is: %d:%d:%d\n", hours, mins, secs);
 		// delay(1000); //milliseconds
 
-		hours=decCompensation((RTC, HOUR_REGISTER));
-		mins=decCompensation(wiringPiI2CReadReg8(RTC, MIN_REGISTER));
-		secs=dec(wiringPiI2CReadReg8(RTC, SEC_REGISTER));
+		hours=hexCompensation(wiringPiI2CReadReg8(RTC, HOUR_REGISTER));
+		mins=hexCompensation(wiringPiI2CReadReg8(RTC, MIN_REGISTER));
+		secs=hexCompensation(wiringPiI2CReadReg8(RTC, SEC_REGISTER));
 		//digitalWrite(LED, LOW);
 
 		
