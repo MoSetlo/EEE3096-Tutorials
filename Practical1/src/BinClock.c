@@ -287,7 +287,6 @@ void minInc(void){
 //This functions will toggle a flag that is checked in main
 void toggleTime(void){
 	long interruptTime = millis();
-	printf("Time in milli= %ld",interruptTime - lastInterruptTime);
 	if (interruptTime - lastInterruptTime>10){
 		HH = getHours();
 		MM = getMins();
