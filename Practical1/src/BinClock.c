@@ -107,7 +107,18 @@ int main(void){
 		//Toggle Seconds LED
 		//Write your logic here
 		digitalWrite(LED, HIGH);
-		printf("The current time is: %d:%d:%d\n", hours, mins, secs);
+
+		if (hours>=12)
+		{
+			hours=hFormat(hours);
+			printf("The current time is: %d:%d:%d PM\n", hours, mins, secs);
+		}
+		else
+		{
+			hours=hFormat(hours);
+			printf("The current time is: %d:%d:%d\n AM", hours, mins, secs);
+		}
+
 		delay(1000); //milliseconds
 
 		hours=hexCompensation(wiringPiI2CReadReg8(RTC, HOUR_REGISTER));
@@ -117,7 +128,19 @@ int main(void){
 
 		
 		// Print out the time we have stored on our RTC
-		printf("The current time is: %d:%d:%d\n", hours, mins, secs);
+		/* code */
+		if (hours>=12)
+		{
+			hours=hFormat(hours);
+			printf("The current time is: %d:%d:%d PM\n", hours, mins, secs);
+		}
+		else
+		{
+			hours=hFormat(hours);
+			printf("The current time is: %d:%d:%d\n AM", hours, mins, secs);
+		}
+		
+		
 
 		//using a delay to make our program "less CPU hungry"
 		delay(1000); //milliseconds
