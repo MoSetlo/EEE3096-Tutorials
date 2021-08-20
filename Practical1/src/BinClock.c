@@ -288,7 +288,7 @@ void minInc(void){
 void toggleTime(void){
 	long interruptTime = millis();
 	if (interruptTime - lastInterruptTime>10){
-		HH = getHours();
+		HH = getHours() +1;
 		MM = getMins();
 		SS = getSecs();
 
