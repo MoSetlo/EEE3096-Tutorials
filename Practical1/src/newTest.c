@@ -36,8 +36,8 @@ int main(void){
 	
 	int data=wiringPiI2CReadReg8(RTC, HOUR_REGISTER);
 
-	printf("The data is: %d", data)	
+	printf("The data is: %d", data);	
 
-	}
+	
 	return 0;
 }
