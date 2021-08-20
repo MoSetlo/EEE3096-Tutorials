@@ -221,7 +221,7 @@ void hourInc(void){
 		}
 		else
 		{
-			wiringPiI2CWriteReg8(RTC, decCompensation(hours));
+			wiringPiI2CWriteReg8(RTC, HOUR_REGISTER, decCompensation(hours));
 		}
 		
 	}
