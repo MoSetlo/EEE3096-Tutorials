@@ -116,7 +116,7 @@ int main(void){
 		else
 		{
 			hours=hFormat(hours);
-			printf("The current time is: %d:%d:%d\n AM", hours, mins, secs);
+			printf("The current time is: %d:%d:%d AM\n", hours, mins, secs);
 		}
 
 		delay(1000); //milliseconds
@@ -137,7 +137,7 @@ int main(void){
 		else
 		{
 			hours=hFormat(hours);
-			printf("The current time is: %d:%d:%d\n AM", hours, mins, secs);
+			printf("The current time is: %d:%d:%d AM\n", hours, mins, secs);
 		}
 		
 		
