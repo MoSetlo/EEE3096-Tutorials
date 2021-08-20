@@ -98,22 +98,22 @@ int main(void){
 	
 	// Repeat this until we shut down
 	for (;;){
-		//Fetch the time from the RTC
-		//Write your logic here
-		// hours=wiringPiI2CReadReg8(RTC, HOUR_REGISTER);
-		// mins=wiringPiI2CReadReg8(RTC, MIN_REGISTER);
-		// secs=wiringPiI2CReadReg8(RTC, SEC_REGISTER);
+		// //Fetch the time from the RTC
+		// //Write your logic here
+		// // hours=wiringPiI2CReadReg8(RTC, HOUR_REGISTER);
+		// // mins=wiringPiI2CReadReg8(RTC, MIN_REGISTER);
+		// // secs=wiringPiI2CReadReg8(RTC, SEC_REGISTER);
 		
-		//Toggle Seconds LED
-		//Write your logic here
-		digitalWrite(LED, HIGH);
-		printf("The current time is: %d:%d:%d\n", hours, mins, secs);
-		delay(1000); //milliseconds
+		// //Toggle Seconds LED
+		// //Write your logic here
+		// digitalWrite(LED, HIGH);
+		// printf("The current time is: %d:%d:%d\n", hours, mins, secs);
+		// delay(1000); //milliseconds
 
 		hours=wiringPiI2CReadReg8(RTC, HOUR_REGISTER);
 		mins=wiringPiI2CReadReg8(RTC, MIN_REGISTER);
 		secs=wiringPiI2CReadReg8(RTC, SEC_REGISTER);
-		digitalWrite(LED, LOW);
+		//digitalWrite(LED, LOW);
 
 		
 		// Print out the time we have stored on our RTC
