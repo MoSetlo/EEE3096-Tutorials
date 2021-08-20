@@ -213,7 +213,7 @@ void hourInc(void){
 		hours=wiringPiI2CReadReg8(RTC, HOUR_REGISTER);
 		//Increase hours by 1, ensuring not to overflow
 		//Write hours back to the RTC
-		hours=hours+1;
+		hours=hexCompensation(hours)+1;
 		if(hexCompensation(hours)>23)
 		{
 			hours=hexCompensation(hours)-24;
@@ -242,7 +242,7 @@ void minInc(void){
 		//Fetch RTC Time
 		//Increase minutes by 1, ensuring not to overflow
 		//Write minutes back to the RTC
-		mins=wiringPiI2CReadReg8(RTC, mins);
+		mins=wiringPiI2CReadReg8(RTC, MIN_REGISTER);
 		mins=mins+1;
 		if(hexCompensation(mins)>59)
 		{
