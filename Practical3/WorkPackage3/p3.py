@@ -72,6 +72,7 @@ def display_scores(count, raw_data):
     topThree=0
     while(topThree<3):
         print("{} - {} took {} guesses".format(topThree+1, raw_data[topThree][0], raw_data[topThree][1]))
+        topThree+=1
     
 
 
@@ -104,14 +105,12 @@ def setup():
 def fetch_scores():
     # get however many scores there are
     score_count = eeprom.read_byte(0)   #reading the first register of the eeprom
-    print(score_count)
     # Get the scores
     arrScores = []
     scores=[]
     for i in range(1,(score_count+1)):  #loops through the blocks of the eeprom with the scores
         arrScores.append(eeprom.read_block(i,4)) #storage of the scores found
     # convert the codes back to ascii
-        print(arrScores)
         x=''
         for q in range(len(arrScores)):
             if q<3:
