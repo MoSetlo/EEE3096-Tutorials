@@ -68,7 +68,7 @@ def menu():
 
 def display_scores(count, raw_data):
     # print the scores to the screen in the expected format
-    #print(raw_data)
+    print(raw_data)
     print("There are {} scores. Here are the top 3!".format(count))
     # print out the scores in the required format
     raw_data.sort(key=lambda x: x[1])
@@ -90,7 +90,9 @@ def setup():
     GPIO.output(LED_value, False)
     #GPIO.setup(power, GPIO.OUT)
     GPIO.setup(LED_accuracy,GPIO.OUT)
+    GPIO.output(LED_accuracy, 0)
     GPIO.setup(buzzer,GPIO.OUT)
+    GPIO.output(buzzer, 0)
     GPIO.setup(btn_submit,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
     GPIO.setup(btn_increase,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
    # GPIO.output(power,1)
