@@ -53,6 +53,7 @@ def menu():
         s_count, ss = fetch_scores()
         display_scores(s_count, ss)
     elif option == "P":
+        end_of_game=False
         os.system('clear')
         print("Starting a new round!")
         print("Use the buttons on the Pi to make and submit your guess!")
@@ -221,11 +222,13 @@ def btn_guess_pressed(channel):
             accuracy_leds()
             trigger_buzzer()
         else:
+            GPIO.cleanup()
             print("Well done champion, you the winnnneerr!! Whooo ")
             name = input("Please enter your name: ")
             if (len(name)>3):
                 name=name[0]+name[1]+name[2]
             save_scores([name,j])
+
             menu()
             j = 0 
             timeButton=0    #counter for when submit button is pressed
@@ -233,7 +236,7 @@ def btn_guess_pressed(channel):
             pwmLed.ChangeDutyCycle(0)
             pwmBuzz.ChangeDutyCycle(0)
             end_of_game=True
-            GPIO.cleanup()
+            
 
 
 
