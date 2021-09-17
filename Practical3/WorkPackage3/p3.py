@@ -15,7 +15,7 @@ guess=0         #the number the user guessed
 # DEFINE THE PINS USED HERE
 LED_value = [11, 13, 15]
 LED_accuracy = 32
-power=2         #used for the 5v rail
+power = 2         #used for the 5v rail
 btn_submit = 16
 btn_increase = 18
 buzzer = 33
