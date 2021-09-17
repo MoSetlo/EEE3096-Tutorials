@@ -84,7 +84,7 @@ def setup():
     GPIO.output(LED_value, False)
     GPIO.setup(power, GPIO.OUT)
     GPIO.setup(32,GPIO.OUT)
-    GPIO.output(12, 0)
+    #GPIO.output(12, 0)
     GPIO.setup(btn_submit,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
     GPIO.setup(btn_increase,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
     GPIO.output(power,1)
