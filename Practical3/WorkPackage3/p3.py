@@ -131,25 +131,24 @@ def fetch_scores():
 def save_scores(newScore):
     # fetch scores
     score_num,sd = fetch_scores()
-    score_num+=1
+    #score_num+=1
     # include new score
     sd.append(newScore)
     # sort
     sd.sort(key=lambda x: x[1])
     data_to_write=[]
-    for score in sd:
+    for i, score in enumerate(sd):
         for letter in score[0]:
             data_to_write.append(ord(letter))
         data_to_write.append(score[1])
-    eeprom.write_block(0, [score_num])
-    eeprom.write_block(1, data_to_write)
+        eeprom.write_block(i+1, data_to_write)
     # update total amount of scores
     # write new scores
 
 
 # Generate guess number
 def generate_number():
-    return random.randint(0, pow(2, 3)-1)
+    return random.randint(1, pow(2, 3)-1)
 
 
 # Increase button pressed
@@ -206,8 +205,8 @@ def btn_guess_pressed(channel):
     time_compare=2
 
     if (time_passed>=time_compare):
-        GPIO.cleanup()
         menu()
+        GPIO.cleanup()
         end_of_game=True
         j = 0 
         timeButton=0    #counter for when submit button is pressed
@@ -223,6 +222,8 @@ def btn_guess_pressed(channel):
             trigger_buzzer()
         else:
             GPIO.cleanup()
+            pwmLed.ChangeDutyCycle(0)
+            pwmBuzz.ChangeDutyCycle(0)
             print("Well done champion, you the winnnneerr!! Whooo ")
             name = input("Please enter your name: ")
             if (len(name)>3):
@@ -233,8 +234,6 @@ def btn_guess_pressed(channel):
             j = 0 
             timeButton=0    #counter for when submit button is pressed
             guess=0         
-            pwmLed.ChangeDutyCycle(0)
-            pwmBuzz.ChangeDutyCycle(0)
             end_of_game=True
             
 
