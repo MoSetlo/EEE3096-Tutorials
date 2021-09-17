@@ -15,7 +15,7 @@ guess=0         #the number the user guessed
 # DEFINE THE PINS USED HERE
 LED_value = [11, 13, 15]
 LED_accuracy = 32
-power = 2         #used for the 5v rail
+#power = 2         #used for the 5v rail
 btn_submit = 16
 btn_increase = 18
 buzzer = 33
@@ -82,12 +82,12 @@ def setup():
     # Setup regular GPIO
     GPIO.setup(LED_value, GPIO.OUT)
     GPIO.output(LED_value, False)
-    GPIO.setup(power, GPIO.OUT)
+    #GPIO.setup(power, GPIO.OUT)
     GPIO.setup(32,GPIO.OUT)
     GPIO.output(32, 0)
     GPIO.setup(btn_submit,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
     GPIO.setup(btn_increase,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
-    GPIO.output(power,1)
+   # GPIO.output(power,1)
     # Setup PWM channels
     pwmBuzzer= GPIO.PWM(buzzer, 0)
     pwmLed=GPIO.PWM(LED_accuracy, 1)
