@@ -303,6 +303,7 @@ if __name__ == "__main__":
         setup()
         welcome()
         while True:
+            GPIO.cleanup()
             setup()
             menu()
             pass
