@@ -8,7 +8,7 @@ from time import sleep
 
 # some global variables that need to change as we run the program
 end_of_game = None  # set if the user wins or ends the game
-j= 0 #number of guesses
+j = 0 #number of guesses
 value=1     #randomly generated number
 timeButton=0    #counter for when submit button is pressed
 guess=0         #the number the user guessed
@@ -78,7 +78,7 @@ def display_scores(count, raw_data):
 # Setup Pins
 def setup():
     # Setup board mode
-    GPIO.setMode(GPIO.BOARD)
+    GPIO.setmode(GPIO.BOARD)
     # Setup regular GPIO
     GPIO.setup(LED_value, GPIO.OUT)
     GPIO.output(LED_value, False)
