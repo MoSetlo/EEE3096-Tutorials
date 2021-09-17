@@ -203,9 +203,10 @@ def btn_guess_pressed(channel):
     time_compare=2
 
     if (time_passed>=time_compare):
-        welcome()
-        end_of_game=True
         GPIO.cleanup()
+        menu()
+        end_of_game=True
+        
     else:
         if (diff>0):
             j+=1
@@ -217,7 +218,7 @@ def btn_guess_pressed(channel):
             if (len(name)>3):
                 name=name[0]+name[1]+name[2]
             save_scores([name,j])
-            welcome()
+            menu()
 
             end_of_game=True
             GPIO.cleanup()
