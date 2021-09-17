@@ -115,7 +115,7 @@ def fetch_scores():
         x=''
         for q in range(len(arrScores)):
             if q<3:
-                x +=chr(arrScores[q])
+                x +=chr(arrScores[0][q])
         scores.append([x, arrScores[3]])        
     # return back the results
     return score_count, scores
