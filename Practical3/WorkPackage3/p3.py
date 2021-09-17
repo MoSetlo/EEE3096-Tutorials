@@ -19,8 +19,8 @@ LED_accuracy = 32
 btn_submit = 16
 btn_increase = 18
 buzzer = 33
-pwmLed = GPIO.PWM(LED_accuracy, 1)
-pwmBuzz = GPIO.PWM(buzzer, 1)  
+pwmLed = None
+pwmBuzz = None  
 eeprom = ES2EEPROMUtils.ES2EEPROM()
 
 
@@ -81,16 +81,16 @@ def display_scores(count, raw_data):
 
 # Setup Pins
 def setup():
+    global pwmLed
+    global pwmBuzz
     # Setup board mode
     GPIO.setmode(GPIO.BOARD)
     # Setup regular GPIO
     GPIO.setup(LED_value, GPIO.OUT)
     GPIO.output(LED_value, False)
     #GPIO.setup(power, GPIO.OUT)
-    GPIO.setup(32,GPIO.OUT)
-    GPIO.output(32, 0)
+    GPIO.setup(LED_accuracy,GPIO.OUT)
     GPIO.setup(buzzer,GPIO.OUT)
-    GPIO.output(buzzer, 0)
     GPIO.setup(btn_submit,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
     GPIO.setup(btn_increase,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
    # GPIO.output(power,1)
