@@ -78,7 +78,7 @@ def display_scores(count, raw_data):
 # Setup Pins
 def setup():
     # Setup board mode
-    GPIO.setmode(GPIO.BOARD)
+    GPIO.setmode(GPIO.BCM)
     # Setup regular GPIO
     GPIO.setup(LED_value, GPIO.OUT)
     GPIO.output(LED_value, False)
