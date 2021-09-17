@@ -22,6 +22,7 @@ buzzer = 33
 pwmLed = None
 pwmBuzz = None  
 eeprom = ES2EEPROMUtils.ES2EEPROM()
+eeprom.populate_mock_scores()
 
 
 # Print the game banner
@@ -90,9 +91,7 @@ def setup():
     GPIO.output(LED_value, False)
     #GPIO.setup(power, GPIO.OUT)
     GPIO.setup(LED_accuracy,GPIO.OUT)
-    GPIO.output(LED_accuracy, 0)
     GPIO.setup(buzzer,GPIO.OUT)
-    GPIO.output(buzzer, 0)
     GPIO.setup(btn_submit,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
     GPIO.setup(btn_increase,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
    # GPIO.output(power,1)
@@ -102,7 +101,7 @@ def setup():
     # Setup debouncing and callbacks
     GPIO.add_event_detect(btn_submit, GPIO.FALLING, callback=btn_guess_pressed, bouncetime=100)
     GPIO.add_event_detect(btn_increase, GPIO.FALLING, callback=btn_increase_pressed, bouncetime=100)
-    eeprom.populate_mock_scores()
+    
     
 
 
@@ -304,6 +303,7 @@ if __name__ == "__main__":
         setup()
         welcome()
         while True:
+            setup()
             menu()
             pass
     except Exception as e:
