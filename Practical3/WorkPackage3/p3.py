@@ -136,7 +136,7 @@ def save_scores(newScore):
     for score in sd:
         for letter in score[0]:
             data_to_write.append(ord(letter))
-            data_to_write.append(score[1])
+        data_to_write.append(score[1])
     eeprom.write_block(0, [score_num])
     eeprom.write_block(1, data_to_write)
     # update total amount of scores
@@ -213,6 +213,8 @@ def btn_guess_pressed(channel):
         else:
             print("Well done champion, you the winnnneerr!! Whooo ")
             name = input("Please enter your name: ")
+            if (len(name)>3):
+                name=name[0]+name[1]+name[2]
             save_scores([name,j])
             welcome()
 
