@@ -77,6 +77,7 @@ def display_scores(count, raw_data):
 
 # Setup Pins
 def setup():
+    GPIO.cleanup()
     # Setup board mode
     GPIO.setmode(GPIO.BOARD)
     # Setup regular GPIO
