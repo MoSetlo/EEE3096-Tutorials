@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import random
 import ES2EEPROMUtils
 import os
-from time import time
+import time
 from time import sleep
 
 # some global variables that need to change as we run the program
@@ -19,8 +19,8 @@ LED_accuracy = 32
 btn_submit = 16
 btn_increase = 18
 buzzer = 33
-pwmLed = 0
-pwmBuzzer = 0
+pwmLed = GPIO.PWM(LED_accuracy, 1)
+pwmBuzz = GPIO.PWM(buzzer, 1)  
 eeprom = ES2EEPROMUtils.ES2EEPROM()
 
 
@@ -95,8 +95,8 @@ def setup():
     GPIO.setup(btn_increase,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
    # GPIO.output(power,1)
     # Setup PWM channels
-    pwmBuzzer= GPIO.PWM(buzzer, 1)
-    pwmLed=GPIO.PWM(LED_accuracy, 1)
+    pwmBuzz = GPIO.PWM(buzzer, 1)
+    pwmLed = GPIO.PWM(LED_accuracy, 1)
     # Setup debouncing and callbacks
     GPIO.add_event_detect(btn_submit, GPIO.FALLING, callback=btn_guess_pressed, bouncetime=100)
     GPIO.add_event_detect(btn_increase, GPIO.FALLING, callback=btn_increase_pressed, bouncetime=100)
@@ -153,8 +153,13 @@ def btn_increase_pressed(channel):
     if (GPIO.input(channel)==0):
         global guess
         guess+=1
+        print(guess)
     # Increase the value shown on the LEDs
-    a=bin(guess).replace("0b","")
+    a=bin(guess).replace("0b","00")
+    a=a[::-1]
+    print(int(a[0]))
+    print(int(a[1]))
+    print(int(a[2]))
     GPIO.output(LED_value, (int(a[0]),int(a[1]),int(a[2]))) 
     # You can choose to have a global variable store the user's current guess, 
     # or just pull the value off the LEDs when a user makes a guess
@@ -162,11 +167,11 @@ def btn_increase_pressed(channel):
 
 def start():
     global timeButton
-    timeButton = time()
+    timeButton = time.time()
 
 def stop():
     global timeButton
-    return time() - timeButton   
+    return time.time() - timeButton   
 
     
 
@@ -237,7 +242,7 @@ def accuracy_leds():
     global guess
     global value
     global pwmLed
-    pwmLed.stop()
+    pwmLed.ChangeDutyCycle(0)
     a=value
     b=guess
     if (b>a):
