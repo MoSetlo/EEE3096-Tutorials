@@ -96,8 +96,10 @@ def setup():
     GPIO.setup(btn_increase,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
    # GPIO.output(power,1)
     # Setup PWM channels
-    pwmBuzz = GPIO.PWM(buzzer, 0)
-    pwmLed = GPIO.PWM(LED_accuracy, 0)
+    pwmBuzz = GPIO.PWM(buzzer, 1)
+    pwmBuzz.stop()
+    pwmLed = GPIO.PWM(LED_accuracy, 1)
+    pwmLed.stop()
     # Setup debouncing and callbacks
     GPIO.add_event_detect(btn_submit, GPIO.FALLING, callback=btn_guess_pressed, bouncetime=100)
     GPIO.add_event_detect(btn_increase, GPIO.FALLING, callback=btn_increase_pressed, bouncetime=100)
