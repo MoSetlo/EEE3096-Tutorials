@@ -110,6 +110,7 @@ def fetch_scores():
     for i in range(1,(score_count+1)):  #loops through the blocks of the eeprom with the scores
         arrScores.append(eeprom.read_block(i,4)) #storage of the scores found
     # convert the codes back to ascii
+    print(arrScores)
     x=''
     for q in range(len(arrScores)):
         if q<3:
