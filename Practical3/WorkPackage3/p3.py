@@ -22,6 +22,7 @@ buzzer = 33
 pwmLed = None
 pwmBuzz = None  
 eeprom = ES2EEPROMUtils.ES2EEPROM()
+#eeprom.clear(2048)
 eeprom.populate_mock_scores()
 
 
@@ -45,6 +46,8 @@ def menu():
     global j
     global pwmLed
     global pwmBuzz
+    print(eeprom.read_block(1,4))
+    print(eeprom.read_byte(1))
     option = input("Select an option:   H - View High Scores     P - Play Game       Q - Quit\n")
     option = option.upper()
     if option == "H":
