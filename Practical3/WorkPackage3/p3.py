@@ -66,6 +66,7 @@ def menu():
 
 def display_scores(count, raw_data):
     # print the scores to the screen in the expected format
+    print(raw_data)
     print("There are {} scores. Here are the top 3!".format(count))
     # print out the scores in the required format
     raw_data.sort(key=lambda x: x[1])
@@ -112,10 +113,11 @@ def fetch_scores():
         arrScores.append(eeprom.read_block(i,4)) #storage of the scores found
     # convert the codes back to ascii
         x=''
-        for q in range(len(arrScores)):
+        for q in range(len(arrScores[i-1])):
             if q<3:
-                x +=chr(arrScores[0][q])
-        scores.append([x, arrScores[0][3]])        
+                x +=chr(arrScores[i-1][q])
+        print(x)
+        scores.append([x, arrScores[i-1][3]])        
     # return back the results
     return score_count, scores
 
