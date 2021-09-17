@@ -19,6 +19,8 @@ LED_accuracy = 32
 btn_submit = 16
 btn_increase = 18
 buzzer = 33
+pwmLed = 0
+pwmBuzzer = 0
 eeprom = ES2EEPROMUtils.ES2EEPROM()
 
 
@@ -66,7 +68,7 @@ def menu():
 
 def display_scores(count, raw_data):
     # print the scores to the screen in the expected format
-    print(raw_data)
+    #print(raw_data)
     print("There are {} scores. Here are the top 3!".format(count))
     # print out the scores in the required format
     raw_data.sort(key=lambda x: x[1])
@@ -116,7 +118,6 @@ def fetch_scores():
         for q in range(len(arrScores[i-1])):
             if q<3:
                 x +=chr(arrScores[i-1][q])
-        print(x)
         scores.append([x, arrScores[i-1][3]])        
     # return back the results
     return score_count, scores
