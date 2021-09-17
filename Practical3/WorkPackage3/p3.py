@@ -152,8 +152,14 @@ def generate_number():
 def btn_increase_pressed(channel):
     if (GPIO.input(channel)==0):
         global guess
-        guess+=1
-        print(guess)
+        if (guess>7):
+            guess=0
+            guess+=1
+        else:
+            guess+=1    
+
+        
+        
     # Increase the value shown on the LEDs
     a=bin(guess).replace("0b","00")
     a=a[::-1]
@@ -242,7 +248,7 @@ def accuracy_leds():
     global guess
     global value
     global pwmLed
-    pwmLed.ChangeDutyCycle(0)
+    pwmLed.stop()
     a=value
     b=guess
     if (b>a):
