@@ -163,6 +163,7 @@ def btn_increase_pressed(channel):
     # Increase the value shown on the LEDs
     a=bin(guess).replace("0b","00")
     a=a[::-1]
+    print("Your guess" + guess)
     print(int(a[0]))
     print(int(a[1]))
     print(int(a[2]))
