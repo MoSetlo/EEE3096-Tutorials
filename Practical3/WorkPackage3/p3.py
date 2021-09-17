@@ -152,9 +152,9 @@ def generate_number():
 def btn_increase_pressed(channel):
     if (GPIO.input(channel)==0):
         global guess
-        if (guess>7):
-            guess=0
-            guess+=1
+        if (guess>=7):
+            guess=1
+            
         else:
             guess+=1    
 
