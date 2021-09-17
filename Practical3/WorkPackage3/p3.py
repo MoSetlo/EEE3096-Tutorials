@@ -103,6 +103,7 @@ def setup():
 def fetch_scores():
     # get however many scores there are
     score_count = eeprom.read_byte(0)   #reading the first register of the eeprom
+    print(score_count)
     # Get the scores
     arrScores = []
     scores=[]
