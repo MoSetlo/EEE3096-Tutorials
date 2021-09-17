@@ -97,9 +97,9 @@ def setup():
    # GPIO.output(power,1)
     # Setup PWM channels
     pwmBuzz = GPIO.PWM(buzzer, 1)
-    pwmBuzz.stop()
+    pwmBuzz.ChangeDutyCycle(0)
     pwmLed = GPIO.PWM(LED_accuracy, 1)
-    pwmLed.stop()
+    pwmLed.ChangeDutyCycle(0)
     # Setup debouncing and callbacks
     GPIO.add_event_detect(btn_submit, GPIO.FALLING, callback=btn_guess_pressed, bouncetime=100)
     GPIO.add_event_detect(btn_increase, GPIO.FALLING, callback=btn_increase_pressed, bouncetime=100)
@@ -208,6 +208,12 @@ def btn_guess_pressed(channel):
         GPIO.cleanup()
         menu()
         end_of_game=True
+        j = 0 
+        timeButton=0    #counter for when submit button is pressed
+        guess=0         
+        pwmLed.ChangeDutyCycle(0)
+        pwmBuzz.ChangeDutyCycle(0)
+        
         
     else:
         if (diff>0):
@@ -221,7 +227,11 @@ def btn_guess_pressed(channel):
                 name=name[0]+name[1]+name[2]
             save_scores([name,j])
             menu()
-
+            j = 0 
+            timeButton=0    #counter for when submit button is pressed
+            guess=0         
+            pwmLed.ChangeDutyCycle(0)
+            pwmBuzz.ChangeDutyCycle(0)
             end_of_game=True
             GPIO.cleanup()
 
