@@ -77,7 +77,6 @@ def display_scores(count, raw_data):
 
 # Setup Pins
 def setup():
-    GPIO.cleanup()
     # Setup board mode
     GPIO.setmode(GPIO.BOARD)
     # Setup regular GPIO
@@ -92,7 +91,7 @@ def setup():
     GPIO.setup(btn_increase,GPIO.IN,pull_up_down=GPIO.PUD_UP)   #setup a button of type pull up 
    # GPIO.output(power,1)
     # Setup PWM channels
-    pwmBuzzer= GPIO.PWM(buzzer, 0)
+    pwmBuzzer= GPIO.PWM(buzzer, 1)
     pwmLed=GPIO.PWM(LED_accuracy, 1)
     # Setup debouncing and callbacks
     GPIO.add_event_detect(btn_submit, GPIO.FALLING, callback=btn_guess_pressed, bouncetime=100)
