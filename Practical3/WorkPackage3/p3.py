@@ -165,27 +165,31 @@ def generate_number():
 
 # Increase button pressed
 def btn_increase_pressed(channel):
-    if (GPIO.input(channel)==0):
-        global guess
-        if (guess>=7):
-            guess=1
-            
-        else:
-            guess+=1    
+    global guess
+    global play
+    while (GPIO.input(channel)==0):
+        sleep(0.01)
 
-        
-        
-    # Increase the value shown on the LEDs
-    a=bin(guess).replace("0b","00")
-    a=a[::-1]
-   
-    print(int(a[0]))
-    print(int(a[1]))
-    print(int(a[2]))
-    GPIO.output(LED_value, (int(a[0]),int(a[1]),int(a[2]))) 
-    # You can choose to have a global variable store the user's current guess, 
-    # or just pull the value off the LEDs when a user makes a guess
-    time.sleep(0.1)
+    if (play== "Begin"):
+        if (guess>=7):
+                guess=1
+                
+        else:
+                guess+=1    
+
+            
+            
+        # Increase the value shown on the LEDs
+        a=bin(guess).replace("0b","00")
+        a=a[::-1]
+    
+        print(int(a[0]))
+        print(int(a[1]))
+        print(int(a[2]))
+        GPIO.output(LED_value, (int(a[0]),int(a[1]),int(a[2]))) 
+        # You can choose to have a global variable store the user's current guess, 
+        # or just pull the value off the LEDs when a user makes a guess
+       # time.sleep(0.1)
 
 def start():
     global timeButton
@@ -201,6 +205,11 @@ def stop():
 # Guess button
 def btn_guess_pressed(channel):
     global play
+    global value
+    global guess
+    global end_of_game
+    global j
+    global timeButton
     start()
 
     w=0
@@ -208,11 +217,7 @@ def btn_guess_pressed(channel):
         sleep(0.01)
     if (play== "Begin"):    
         time_passed=stop()  
-        global value
-        global guess
-        global end_of_game
-        global j
-        global timeButton
+        
 
         s= value
         y = guess
