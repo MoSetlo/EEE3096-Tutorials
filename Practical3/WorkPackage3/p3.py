@@ -22,7 +22,7 @@ buzzer = 33
 pwmLed = None
 pwmBuzz = None  
 eeprom = ES2EEPROMUtils.ES2EEPROM()
-#eeprom.clear(2048)
+eeprom.clear(2048)
 eeprom.populate_mock_scores()
 
 
@@ -47,7 +47,7 @@ def menu():
     global pwmLed
     global pwmBuzz
     print(eeprom.read_block(1,4))
-    print(eeprom.read_byte(0))
+    print(eeprom.read_block(0,4))
     option = input("Select an option:   H - View High Scores     P - Play Game       Q - Quit\n")
     option = option.upper()
     if option == "H":
@@ -137,13 +137,15 @@ def save_scores(newScore):
     score_num+=1
     #print(score_num)
     #eeprom.clear(2048)
-    eeprom.write_byte(0, score_num)
+    eeprom.write_block(0, [score_num])
     # include new score
     sd.append(newScore)
+    print(sd)
     # sort
     sd.sort(key=lambda x: x[1])
-    data_to_write=[]
+    #data_to_write=[]
     for i, score in enumerate(sd):
+        data_to_write=[]
         for letter in score[0]:
             data_to_write.append(ord(letter))
         data_to_write.append(score[1])
@@ -236,7 +238,7 @@ def btn_guess_pressed(channel):
                 name=name[0]+name[1]+name[2]
             save_scores([name,j])
 
-            welcome()
+            menu()
             j = 0 
             timeButton=0    #counter for when submit button is pressed
             guess=0         
