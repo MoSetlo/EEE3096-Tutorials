@@ -210,8 +210,8 @@ def btn_guess_pressed(channel):
     global end_of_game
     global j
     global timeButton
-    global pwmBuzz
-    global pwmLed
+    #global pwmBuzz
+    #global pwmLed
     start()
 
     w=0
