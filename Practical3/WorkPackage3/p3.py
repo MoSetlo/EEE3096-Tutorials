@@ -21,7 +21,7 @@ btn_increase = 18
 buzzer = 33
 pwmLed = None
 pwmBuzz = None  
-play= "start"
+play= "Start"
 eeprom = ES2EEPROMUtils.ES2EEPROM()
 eeprom.clear(2048)
 eeprom.populate_mock_scores()
@@ -54,14 +54,14 @@ def menu():
     option = option.upper()
     if option == "H":
         os.system('clear')
-        play="H"
+        play="Scores"
         print("HIGH SCORES!!")
         s_count, ss = fetch_scores()
         display_scores(s_count, ss)
     elif option == "P":
        # end_of_game=False
         os.system('clear')
-        play="P"
+        play="Begin"
         print("Starting a new round!")
         print("Use the buttons on the Pi to make and submit your guess!")
         print("Press and hold the guess button to cancel your game")
@@ -203,56 +203,57 @@ def btn_guess_pressed(channel):
     global play
     start()
 
-    #w=0
-    while (GPIO.input(channel)==0) and (play=="P"):
+    w=0
+    while (GPIO.input(channel)==0):
         sleep(0.01)
-    time_passed=stop()  
-    global value
-    global guess
-    global end_of_game
-    global j
-    global timeButton
+    if (play== "Begin"):    
+        time_passed=stop()  
+        global value
+        global guess
+        global end_of_game
+        global j
+        global timeButton
 
-    s= value
-    y = guess
-    diff=abs(s-y)
-    time_compare=2
+        s= value
+        y = guess
+        diff=abs(s-y)
+        time_compare=2
 
-    if (time_passed>=time_compare):
-        menu()
-        play="Start"
-        GPIO.cleanup()
-        end_of_game=True
-        j = 0 
-        timeButton=0    #counter for when submit button is pressed
-        guess=0         
-        pwmLed.ChangeDutyCycle(0)
-        pwmBuzz.ChangeDutyCycle(0)
-        
-        
-    else:
-        if (diff>0):
-            j+=1
-            accuracy_leds()
-            trigger_buzzer()
-            print("{}-is your guess".format(guess))
-        else:
-            print("{}-is your guess".format(guess))
-            GPIO.cleanup()
-            pwmLed.ChangeDutyCycle(0)
-            pwmBuzz.ChangeDutyCycle(0)
-            print("Well done champion, you the winnnneerr!! Whooo ")
-            name = input("Please enter your name: ")
-            if (len(name)>3):
-                name=name[0]+name[1]+name[2]
-            save_scores([name,j+1])
-
+        if (time_passed>=time_compare):
             menu()
             play="Start"
+            GPIO.cleanup()
+            end_of_game=True
             j = 0 
             timeButton=0    #counter for when submit button is pressed
             guess=0         
-            end_of_game=True
+            pwmLed.ChangeDutyCycle(0)
+            pwmBuzz.ChangeDutyCycle(0)
+            
+            
+        else:
+            if (diff>0):
+                j+=1
+                accuracy_leds()
+                trigger_buzzer()
+                print("{}-is your guess".format(guess))
+            else:
+                print("{}-is your guess".format(guess))
+                GPIO.cleanup()
+                pwmLed.ChangeDutyCycle(0)
+                pwmBuzz.ChangeDutyCycle(0)
+                print("Well done champion, you the winnnneerr!! Whooo ")
+                name = input("Please enter your name: ")
+                if (len(name)>3):
+                    name=name[0]+name[1]+name[2]
+                save_scores([name,j+1])
+
+                menu()
+                play="Start"
+                j = 0 
+                timeButton=0    #counter for when submit button is pressed
+                guess=0         
+                end_of_game=True
             
 
 
