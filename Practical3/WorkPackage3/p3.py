@@ -200,6 +200,7 @@ def stop():
 
 # Guess button
 def btn_guess_pressed(channel):
+    global play
     start()
 
     #w=0
@@ -210,7 +211,6 @@ def btn_guess_pressed(channel):
     global guess
     global end_of_game
     global j
-    global play
     global timeButton
 
     s= value
