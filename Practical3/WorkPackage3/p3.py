@@ -48,6 +48,7 @@ def menu():
     global pwmLed
     global pwmBuzz
     global play
+    end_of_game=False
     print(eeprom.read_block(1,4))
     print(eeprom.read_block(0,4))
     option = input("Select an option:   H - View High Scores     P - Play Game       Q - Quit\n")
@@ -223,10 +224,10 @@ def btn_guess_pressed(channel):
         time_compare=2
 
         if (time_passed>=time_compare):
-            welcome()
+            #welcome()
             play="Start"
             GPIO.cleanup()
-            #end_of_game=True
+            end_of_game=True
             j = 0 
             timeButton=0    #counter for when submit button is pressed
             guess=0         
@@ -251,12 +252,12 @@ def btn_guess_pressed(channel):
                     name=name[0]+name[1]+name[2]
                 save_scores([name,j+1])
 
-                welcome()
+                #welcome()
                 play="Start"
                 j = 0 
                 timeButton=0    #counter for when submit button is pressed
                 guess=0         
-               # end_of_game=True
+                end_of_game=True
             
 
 
