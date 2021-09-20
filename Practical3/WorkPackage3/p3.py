@@ -236,7 +236,7 @@ def btn_guess_pressed(channel):
                 name=name[0]+name[1]+name[2]
             save_scores([name,j])
 
-            menu()
+            welcome()
             j = 0 
             timeButton=0    #counter for when submit button is pressed
             guess=0         
