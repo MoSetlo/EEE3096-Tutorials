@@ -7,15 +7,14 @@ import time
 from time import sleep
 
 # some global variables that need to change as we run the program
-end_of_game = None  # set if the user wins or ends the game
-j = 0 #number of guesses
+finishGame = None  # set if the user wins or ends the game
+numGuess = 0 #number of guesses
 value=1     #randomly generated number
-timeButton=0    #counter for when submit button is pressed
+buttonHold=0    #counter for when submit button is pressed
 guess=0         #the number the user guessed
 # DEFINE THE PINS USED HERE
 LED_value = [11, 13, 15]
 LED_accuracy = 32
-#power = 2         #used for the 5v rail
 btn_submit = 16
 btn_increase = 18
 buzzer = 33
@@ -23,8 +22,8 @@ pwmLed = None
 pwmBuzz = None  
 play= "Start"
 eeprom = ES2EEPROMUtils.ES2EEPROM()
-eeprom.clear(2048)
-eeprom.populate_mock_scores()
+eeprom.clear(2048) #clear the eeprom
+eeprom.populate_mock_scores() #populate the eeprom with mock scores
 
 
 # Print the game banner
@@ -42,15 +41,15 @@ def welcome():
 
 # Print the game menu
 def menu():
-    global end_of_game
+    global finishGame
     global value
-    global j
+    global numGuess
     global pwmLed
     global pwmBuzz
     global play
-    end_of_game=False
-    print(eeprom.read_block(1,4))
-    print(eeprom.read_block(0,4))
+    finishGame=False
+   # print(eeprom.read_block(1,4))
+   # print(eeprom.read_block(0,4))
     option = input("Select an option:   H - View High Scores     P - Play Game       Q - Quit\n")
     option = option.upper()
     if option == "H":
@@ -60,7 +59,7 @@ def menu():
         s_count, ss = fetch_scores()
         display_scores(s_count, ss)
     elif option == "P":
-       # end_of_game=False
+       # finishGame=False
         os.system('clear')
         play="Begin"
         print("Starting a new round!")
@@ -68,7 +67,7 @@ def menu():
         print("Press and hold the guess button to cancel your game")
         #print('Hello')
         value = generate_number()
-        while not end_of_game:
+        while not finishGame:
             pass
     elif option == "Q":
         print("Come back soon!")
@@ -111,7 +110,7 @@ def setup():
     pwmLed = GPIO.PWM(LED_accuracy, 1)
     pwmLed.ChangeDutyCycle(0)
     # Setup debouncing and callbacks
-    GPIO.add_event_detect(btn_submit, GPIO.FALLING, callback=btn_guess_pressed, bouncetime=100)
+    GPIO.add_event_detect(btn_submit, GPIO.FALLING, callback=btn_guess_pressed, bouncetime=200)
     GPIO.add_event_detect(btn_increase, GPIO.FALLING, callback=btn_increase_pressed, bouncetime=100)
     
     
@@ -139,18 +138,18 @@ def fetch_scores():
 # Save high scores
 def save_scores(newScore):
     # fetch scores
-    score_num,sd = fetch_scores()
-    score_num+=1
-    #print(score_num)
+    totalScores,arrSave = fetch_scores()
+    totalScores+=1
+    #print(totalScores)
     #eeprom.clear(2048)
-    eeprom.write_block(0, [score_num])
+    eeprom.write_block(0, [totalScores])
     # include new score
-    sd.append(newScore)
-    print(sd)
+    arrSave.append(newScore)
+    print(arrSave)
     # sort
-    sd.sort(key=lambda x: x[1])
+    arrSave.sort(key=lambda x: x[1])
     #data_to_write=[]
-    for i, score in enumerate(sd):
+    for i, score in enumerate(arrSave):
         data_to_write=[]
         for letter in score[0]:
             data_to_write.append(ord(letter))
@@ -183,21 +182,21 @@ def btn_increase_pressed(channel):
         a=bin(guess).replace("0b","00")
         a=a[::-1]
     
-        print(int(a[0]))
-        print(int(a[1]))
-        print(int(a[2]))
+        # print(int(a[0]))
+        # print(int(a[1]))
+        # print(int(a[2]))
         GPIO.output(LED_value, (int(a[0]),int(a[1]),int(a[2]))) 
         # You can choose to have a global variable store the user's current guess, 
         # or just pull the value off the LEDs when a user makes a guess
         time.sleep(0.1)
 
 def start():
-    global timeButton
-    timeButton = time.time()
+    global buttonHold
+    buttonHold = time.time()
 
 def stop():
-    global timeButton
-    return time.time() - timeButton   
+    global buttonHold
+    return time.time() - buttonHold   
 
     
 
@@ -207,9 +206,9 @@ def btn_guess_pressed(channel):
     global play
     global value
     global guess
-    global end_of_game
-    global j
-    global timeButton
+    global finishGame
+    global numGuess
+    global buttonHold
     #global pwmBuzz
     #global pwmLed
     start()
@@ -218,21 +217,19 @@ def btn_guess_pressed(channel):
     while (GPIO.input(channel)==0):
         sleep(0.05)
     if (play== "Begin"):    
-        time_passed=stop()  
-        
+        buttonRelease=stop()  
 
-        s= value
-        y = guess
-        diff=abs(s-y)
-        time_compare=2
+        currentValue= value
+        currentGuess = guess
+        diff=abs(currentValue-currentGuess)
 
-        if (time_passed>=time_compare):
+        if (buttonRelease>=2):
             #welcome()
             play="Start"
             #GPIO.cleanup()
-            end_of_game=True
-            j = 0 
-            timeButton=0    #counter for when submit button is pressed
+            finishGame=True
+            numGuess = 0 
+            buttonHold=0    #counter for when submit button is pressed
             guess=0         
             pwmLed.ChangeDutyCycle(0)
             pwmBuzz.ChangeDutyCycle(0)
@@ -241,10 +238,10 @@ def btn_guess_pressed(channel):
             
         else:
             if (diff>0 and guess!=0):
-                j+=1
+                numGuess+=1
                 accuracy_leds()
                 trigger_buzzer()
-                print("{}-is your guess".format(j))
+                print("{}-is your guess".format(numGuess))
             else:
                 print("{}-is your guess".format(guess))
                 #GPIO.cleanup()
@@ -256,14 +253,14 @@ def btn_guess_pressed(channel):
                 name = input("Please enter your name: ")
                 if (len(name)>3):
                     name=name[0]+name[1]+name[2]
-                save_scores([name,j+1])
+                save_scores([name,numGuess+1])
 
                 #welcome()
                 play="Start"
-                j = 0 
-                timeButton=0    #counter for when submit button is pressed
+                numGuess = 0 
+                buttonHold=0    #counter for when submit button is pressed
                 guess=0         
-                end_of_game=True
+                finishGame=True
 
             
 
