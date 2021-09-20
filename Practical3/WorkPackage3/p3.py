@@ -21,6 +21,7 @@ btn_increase = 18
 buzzer = 33
 pwmLed = None
 pwmBuzz = None  
+play= "start"
 eeprom = ES2EEPROMUtils.ES2EEPROM()
 eeprom.clear(2048)
 eeprom.populate_mock_scores()
@@ -46,18 +47,21 @@ def menu():
     global j
     global pwmLed
     global pwmBuzz
+    global play
     print(eeprom.read_block(1,4))
     print(eeprom.read_block(0,4))
     option = input("Select an option:   H - View High Scores     P - Play Game       Q - Quit\n")
     option = option.upper()
     if option == "H":
         os.system('clear')
+        play="H"
         print("HIGH SCORES!!")
         s_count, ss = fetch_scores()
         display_scores(s_count, ss)
     elif option == "P":
        # end_of_game=False
         os.system('clear')
+        play="P"
         print("Starting a new round!")
         print("Use the buttons on the Pi to make and submit your guess!")
         print("Press and hold the guess button to cancel your game")
@@ -198,14 +202,16 @@ def stop():
 def btn_guess_pressed(channel):
     start()
 
-    w=0
-    while GPIO.input(channel)==0:
+    #w=0
+    while (GPIO.input(channel)==0) and (play=="P"):
         sleep(0.01)
     time_passed=stop()  
     global value
     global guess
     global end_of_game
     global j
+    global play
+    global timeButton
 
     s= value
     y = guess
@@ -214,6 +220,7 @@ def btn_guess_pressed(channel):
 
     if (time_passed>=time_compare):
         menu()
+        play="Start"
         GPIO.cleanup()
         end_of_game=True
         j = 0 
@@ -236,9 +243,10 @@ def btn_guess_pressed(channel):
             name = input("Please enter your name: ")
             if (len(name)>3):
                 name=name[0]+name[1]+name[2]
-            save_scores([name,j])
+            save_scores([name,j+1])
 
             menu()
+            play="Start"
             j = 0 
             timeButton=0    #counter for when submit button is pressed
             guess=0         
