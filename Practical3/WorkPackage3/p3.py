@@ -78,7 +78,7 @@ def menu():
 
 def display_scores(count, raw_data):
     # print the scores to the screen in the expected format
-    print(raw_data)
+    #print(raw_data)
     print("There are {} scores. Here are the top 3!".format(count))
     # print out the scores in the required format
     raw_data.sort(key=lambda x: x[1])
@@ -145,7 +145,7 @@ def save_scores(newScore):
     eeprom.write_block(0, [totalScores])
     # include new score
     arrSave.append(newScore)
-    print(arrSave)
+   # print(arrSave)
     # sort
     arrSave.sort(key=lambda x: x[1])
     #data_to_write=[]
@@ -243,7 +243,7 @@ def btn_guess_pressed(channel):
                 trigger_buzzer()
                 print("{}-is your guess".format(numGuess))
             else:
-                print("{}-is your guess".format(guess))
+                print("{}-is your guess".format(numGuess))
                 #GPIO.cleanup()
                 pwmLed.ChangeDutyCycle(0)
                 pwmBuzz.ChangeDutyCycle(0)
@@ -295,12 +295,12 @@ def accuracy_leds():
     global value
     global pwmLed
     pwmLed.stop()
-    a=value
-    b=guess
-    if (b>a):
-        dutycycle = ((8-b)/(8-a))*100
+    accuValue=value
+    accuGuess=guess
+    if (accuGuess>accuValue):
+        dutycycle = ((8-accuGuess)/(8-accuValue))*100
     else: 
-        dutycycle = (b/a)*100
+        dutycycle = (accuGuess/accuValue)*100
     pwmLed.ChangeDutyCycle(dutycycle)
     pwmLed.start(dutycycle)
 
@@ -317,9 +317,9 @@ def trigger_buzzer():
     global pwmBuzz
 
     pwmBuzz.start(50)
-    e=value
-    c=guess
-    difference=abs(e-c)
+    buzzerValue=value
+    buzzerGuess=guess
+    difference=abs(buzzerValue-buzzerGuess)
     if (difference==3):
         frequency=1
         pwmBuzz.ChangeFrequency(frequency)
