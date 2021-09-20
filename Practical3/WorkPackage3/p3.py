@@ -241,15 +241,15 @@ def btn_guess_pressed(channel):
                 numGuess+=1
                 accuracy_leds()
                 trigger_buzzer()
-                print("{}-is your guess".format(numGuess))
+               # print("{}-is your guess".format(numGuess))
             else:
-                print("{}-is your guess".format(numGuess))
+                #print("{}-is your guess".format(numGuess))
                 #GPIO.cleanup()
                 pwmLed.ChangeDutyCycle(0)
                 pwmBuzz.ChangeDutyCycle(0)
                 GPIO.output(LED_value, False)
                 print("Well done champion, you the winnnneerr!! Whooo ")
-                print(value)
+               # print(value)
                 name = input("Please enter your name: ")
                 if (len(name)>3):
                     name=name[0]+name[1]+name[2]
