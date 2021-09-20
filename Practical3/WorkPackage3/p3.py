@@ -223,7 +223,7 @@ def btn_guess_pressed(channel):
         time_compare=2
 
         if (time_passed>=time_compare):
-            menu()
+            welcome()
             play="Start"
             GPIO.cleanup()
             #end_of_game=True
@@ -239,7 +239,7 @@ def btn_guess_pressed(channel):
                 j+=1
                 accuracy_leds()
                 trigger_buzzer()
-                print("{}-is your guess".format(guess))
+                print("{}-is your guess".format(j))
             else:
                 print("{}-is your guess".format(guess))
                 GPIO.cleanup()
@@ -251,7 +251,7 @@ def btn_guess_pressed(channel):
                     name=name[0]+name[1]+name[2]
                 save_scores([name,j+1])
 
-                menu()
+                welcome()
                 play="Start"
                 j = 0 
                 timeButton=0    #counter for when submit button is pressed
