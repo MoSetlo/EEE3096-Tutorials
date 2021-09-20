@@ -69,7 +69,6 @@ def menu():
         print('Hello')
         value = generate_number()
         while not end_of_game:
-            print('q')
             pass
     elif option == "Q":
         print("Come back soon!")
@@ -344,6 +343,7 @@ if __name__ == "__main__":
         welcome()
         while True:
             menu()
+            setup()
             pass
     except Exception as e:
         print(e)
