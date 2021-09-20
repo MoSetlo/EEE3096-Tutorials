@@ -178,7 +178,7 @@ def btn_increase_pressed(channel):
     # Increase the value shown on the LEDs
     a=bin(guess).replace("0b","00")
     a=a[::-1]
-    print("{}-is your guess".format(guess))
+   
     print(int(a[0]))
     print(int(a[1]))
     print(int(a[2]))
@@ -235,7 +235,9 @@ def btn_guess_pressed(channel):
             j+=1
             accuracy_leds()
             trigger_buzzer()
+            print("{}-is your guess".format(guess))
         else:
+            print("{}-is your guess".format(guess))
             GPIO.cleanup()
             pwmLed.ChangeDutyCycle(0)
             pwmBuzz.ChangeDutyCycle(0)
