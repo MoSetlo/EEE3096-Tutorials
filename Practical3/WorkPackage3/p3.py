@@ -226,7 +226,7 @@ def btn_guess_pressed(channel):
             menu()
             play="Start"
             GPIO.cleanup()
-            end_of_game=True
+            #end_of_game=True
             j = 0 
             timeButton=0    #counter for when submit button is pressed
             guess=0         
@@ -235,7 +235,7 @@ def btn_guess_pressed(channel):
             
             
         else:
-            if (diff>0):
+            if (diff>0 and guess!=0):
                 j+=1
                 accuracy_leds()
                 trigger_buzzer()
@@ -256,7 +256,7 @@ def btn_guess_pressed(channel):
                 j = 0 
                 timeButton=0    #counter for when submit button is pressed
                 guess=0         
-                end_of_game=True
+               # end_of_game=True
             
 
 
