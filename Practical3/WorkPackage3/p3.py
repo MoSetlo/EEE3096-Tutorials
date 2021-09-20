@@ -216,7 +216,7 @@ def btn_guess_pressed(channel):
 
     w=0
     while (GPIO.input(channel)==0):
-        sleep(0.1)
+        sleep(0.05)
     if (play== "Begin"):    
         time_passed=stop()  
         
