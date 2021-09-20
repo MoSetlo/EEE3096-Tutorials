@@ -135,9 +135,9 @@ def save_scores(newScore):
     # fetch scores
     score_num,sd = fetch_scores()
     score_num+=1
-    print(score_num)
-    eeprom.clear(2048)
-    eeprom.write_block(0, [5])
+    #print(score_num)
+    #eeprom.clear(2048)
+    eeprom.write_byte(0, score_num)
     # include new score
     sd.append(newScore)
     # sort
