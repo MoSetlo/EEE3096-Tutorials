@@ -227,7 +227,7 @@ def btn_guess_pressed(channel):
         if (time_passed>=time_compare):
             #welcome()
             play="Start"
-            GPIO.cleanup()
+            #GPIO.cleanup()
             end_of_game=True
             j = 0 
             timeButton=0    #counter for when submit button is pressed
@@ -244,7 +244,7 @@ def btn_guess_pressed(channel):
                 print("{}-is your guess".format(j))
             else:
                 print("{}-is your guess".format(guess))
-                GPIO.cleanup()
+                #GPIO.cleanup()
                 pwmLed.ChangeDutyCycle(0)
                 pwmBuzz.ChangeDutyCycle(0)
                 print("Well done champion, you the winnnneerr!! Whooo ")
@@ -343,7 +343,7 @@ if __name__ == "__main__":
         welcome()
         while True:
             menu()
-            setup()
+            #setup()
             pass
     except Exception as e:
         print(e)
