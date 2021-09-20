@@ -252,6 +252,7 @@ def btn_guess_pressed(channel):
                 pwmBuzz.ChangeDutyCycle(0)
                 GPIO.output(LED_value, False)
                 print("Well done champion, you the winnnneerr!! Whooo ")
+                print(value)
                 name = input("Please enter your name: ")
                 if (len(name)>3):
                     name=name[0]+name[1]+name[2]
