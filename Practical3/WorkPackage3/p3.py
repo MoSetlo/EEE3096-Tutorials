@@ -66,7 +66,7 @@ def menu():
         print("Starting a new round!")
         print("Use the buttons on the Pi to make and submit your guess!")
         print("Press and hold the guess button to cancel your game")
-        print('Hello')
+        #print('Hello')
         value = generate_number()
         while not end_of_game:
             pass
@@ -210,11 +210,13 @@ def btn_guess_pressed(channel):
     global end_of_game
     global j
     global timeButton
+    global pwmBuzz
+    global pwmLed
     start()
 
     w=0
     while (GPIO.input(channel)==0):
-        sleep(0.01)
+        sleep(0.1)
     if (play== "Begin"):    
         time_passed=stop()  
         
@@ -234,6 +236,7 @@ def btn_guess_pressed(channel):
             guess=0         
             pwmLed.ChangeDutyCycle(0)
             pwmBuzz.ChangeDutyCycle(0)
+            GPIO.output(LED_value, False)
             
             
         else:
@@ -247,6 +250,7 @@ def btn_guess_pressed(channel):
                 #GPIO.cleanup()
                 pwmLed.ChangeDutyCycle(0)
                 pwmBuzz.ChangeDutyCycle(0)
+                GPIO.output(LED_value, False)
                 print("Well done champion, you the winnnneerr!! Whooo ")
                 name = input("Please enter your name: ")
                 if (len(name)>3):
@@ -259,6 +263,7 @@ def btn_guess_pressed(channel):
                 timeButton=0    #counter for when submit button is pressed
                 guess=0         
                 end_of_game=True
+
             
 
 
