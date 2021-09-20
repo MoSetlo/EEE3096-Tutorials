@@ -47,7 +47,7 @@ def menu():
     global pwmLed
     global pwmBuzz
     print(eeprom.read_block(1,4))
-    print(eeprom.read_byte(1))
+    print(eeprom.read_byte(0))
     option = input("Select an option:   H - View High Scores     P - Play Game       Q - Quit\n")
     option = option.upper()
     if option == "H":
