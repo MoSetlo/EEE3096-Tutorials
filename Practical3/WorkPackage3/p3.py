@@ -56,7 +56,7 @@ def menu():
         s_count, ss = fetch_scores()
         display_scores(s_count, ss)
     elif option == "P":
-        end_of_game=False
+       # end_of_game=False
         os.system('clear')
         print("Starting a new round!")
         print("Use the buttons on the Pi to make and submit your guess!")
