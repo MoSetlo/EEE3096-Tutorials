@@ -69,6 +69,7 @@ def menu():
         print('Hello')
         value = generate_number()
         while not end_of_game:
+            print('q')
             pass
     elif option == "Q":
         print("Come back soon!")
