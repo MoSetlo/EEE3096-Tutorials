@@ -23,8 +23,8 @@ def btn_pressed(channel):
         i = 0
     wait = waits[i]
 
-GPIO.setup(18, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.add_event_detect(18, GPIO.FALLING, callback = btn_pressed, bouncetime = 200)
+GPIO.setup(24, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.add_event_detect(24, GPIO.FALLING, callback = btn_pressed, bouncetime = 200)
 
 def print_time_thread():
     thread = threading.Timer(wait, print_time_thread)
