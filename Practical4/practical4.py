@@ -16,7 +16,8 @@ waits = [10, 5, 1]
 
 def btn_pressed(channel):
     global i, wait
-    print("Ha Gay")
+    if (GPIO.input(channel)==0):
+        print("Ha Gay")
     i += 1
     if i == 3:
         i = 0
