@@ -11,36 +11,36 @@ spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
 cs = digitalio.DigitalInOut(board.D5)
 mcp = MCP.MCP3008(spi, cs)
 
-wait = 10
-waits = [10, 5, 1]
+i=0;
+sampling = 10
+arrSampling = [10, 5, 1]
 
 def btn_pressed(channel):
-    global i, wait
+    global i, sampling
     if (GPIO.input(channel)==0):
         print("Ha Gay")
     i += 1
     if i == 3:
         i = 0
-    wait = waits[i]
+    sampling = arrSampling[i]
 
 GPIO.setup(24, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.add_event_detect(24, GPIO.FALLING, callback = btn_pressed, bouncetime = 200)
 
 def print_time_thread():
-    thread = threading.Timer(wait, print_time_thread)
+    thread = threading.Timer(sampling, print_time_thread)
     thread.daemon = True
     thread.start()
-    chan1 = AnalogIn(mcp, MCP.P2)
-    chan2 = AnalogIn(mcp, MCP.P1)
-    end = time.time()
-    temp = (chan2.voltage - 0.5) * 100
-    print('{:15s}{:15s}{:15s}{:15s}'.format(str(round(end - start)) + ' s', str(chan2.value), str(round(temp, 2)) + ' C', str(chan1.value)))
+    chan2 = AnalogIn(mcp, MCP.P2)
+    chan1 = AnalogIn(mcp, MCP.P1)
+    degree = round((chan1.voltage - 0.5) * 100,2)
+    stop = time.time()
+    
+    print('{:15s}{:15s}{:15s}{:15s}'.format(str(round(stop - begin)) + ' s', str(chan1.value), str(degree) + ' C', str(chan2.value)))
 
 if __name__ == '__main__':
-    print('Runtime        Temp Reading   Temp         \
-  Light Reading')
-    start = time.time()
+    print('Runtime        Temp Reading   Temp         Light Reading')
+    begin = time.time()
     print_time_thread()
-    i = 0
     while True:
         pass
