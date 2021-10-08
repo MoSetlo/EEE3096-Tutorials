@@ -11,21 +11,20 @@ spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
 cs = digitalio.DigitalInOut(board.D5)
 mcp = MCP.MCP3008(spi, cs)
 
-i=0;
+i=0
 sampling = 10
 arrSampling = [10, 5, 1]
+GPIO.setup(26, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.add_event_detect(26, GPIO.FALLING, callback = btn_pressed, bouncetime = 200)
 
 def btn_pressed(channel):
     global i, sampling
     if (GPIO.input(channel)==0):
-        print("Ha Gay")
-    i += 1
-    if i == 3:
-        i = 0
-    sampling = arrSampling[i]
-
-GPIO.setup(24, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.add_event_detect(24, GPIO.FALLING, callback = btn_pressed, bouncetime = 200)
+        #print("Check") 
+        i=i+1   
+        sampling = arrSampling[i]
+        if i == 2:
+            i=0
 
 def print_time_thread():
     thread = threading.Timer(sampling, print_time_thread)
