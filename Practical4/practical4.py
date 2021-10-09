@@ -28,7 +28,7 @@ def btn_pressed(channel):
         i=i+1   
         sampling = arrSampling[i]
         if i == 2:
-            i=0
+            i=-1
 
 GPIO.setup(26, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.add_event_detect(26, GPIO.FALLING, callback = btn_pressed, bouncetime = 200)
